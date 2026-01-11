@@ -29,58 +29,58 @@ const router = Router();
 
 router.use(authMiddleware);
 
-router.get("/:userId", ctrlWrapper(getWorkspaceData));
+router.get("/", ctrlWrapper(getWorkspaceData));
 
-router.get("/:userId/boards", ctrlWrapper(getBoardNames));
+router.get("/boards", ctrlWrapper(getBoardNames));
 
-router.get("/:userId/boards/:boardId/columns", ctrlWrapper(getColumnNames));
+router.get("/boards/:boardId/columns", ctrlWrapper(getColumnNames));
 
 /* ---------------------------------- BOARD --------------------------------- */
 
 router.post(
-  "/:userId/boards",
+  "/boards",
   validateBody(createBoardSchema),
   ctrlWrapper(createBoard)
 );
 
 router.patch(
-  "/:userId/boards/:boardId",
+  "/boards/:boardId",
   validateBody(editBoardSchema),
   ctrlWrapper(editBoard)
 );
 
-router.delete("/:userId/boards/:boardId", ctrlWrapper(deleteBoard));
+router.delete("/boards/:boardId", ctrlWrapper(deleteBoard));
 
 /* --------------------------------- COLUMN --------------------------------- */
 
 router.post(
-  "/:userId/boards/:boardId/columns",
+  "/boards/:boardId/columns",
   validateBody(createColumnSchema),
   ctrlWrapper(createColumn)
 );
 
 router.patch(
-  "/:userId/columns/:columnId",
+  "/columns/:columnId",
   validateBody(editColumnSchema),
   ctrlWrapper(editColumn)
 );
 
-router.delete("/:userId/columns/:columnId", ctrlWrapper(deleteColumn));
+router.delete("/columns/:columnId", ctrlWrapper(deleteColumn));
 
 /* ---------------------------------- TASK ---------------------------------- */
 
 router.post(
-  "/:userId/boards/:boardId/columns/:columnId/tasks",
+  "/boards/:boardId/columns/:columnId/tasks",
   validateBody(createTaskSchema),
   ctrlWrapper(createTask)
 );
 
 router.patch(
-  "/:userId/tasks/:taskId",
+  "/tasks/:taskId",
   validateBody(editTaskSchema),
   ctrlWrapper(editTask)
 );
 
-router.delete("/:userId/tasks/:taskId", ctrlWrapper(deleteTask));
+router.delete("/tasks/:taskId", ctrlWrapper(deleteTask));
 
 export default router;
