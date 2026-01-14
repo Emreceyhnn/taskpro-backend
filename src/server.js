@@ -15,7 +15,7 @@ export const setupServer = () => {
   app.use(express.json());
   app.use(
     cors({
-      origin: process.env.FRONTEND_ENDPOINT,
+      origin: "https://taskpro-omega.vercel.app",
       credentials: true,
     })
   );

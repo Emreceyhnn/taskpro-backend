@@ -56,7 +56,7 @@ router.get("/confirm-oauth", (req, res) => {
     return res.status(400).send("Code yok");
   }
 
-  const frontendCallbackUrl = `${process.env.FRONTEND_ENDPOINT}/oauth/google?code=${code}`;
+  const frontendCallbackUrl = `https://taskpro-omega.vercel.app/oauth/google?code=${code}`;
 
   return res.redirect(frontendCallbackUrl);
 });
