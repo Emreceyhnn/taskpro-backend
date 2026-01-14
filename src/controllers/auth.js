@@ -29,7 +29,7 @@ export const loginUserController = async (req, res) => {
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
     sameSite: "none",
-    secure: process.env.NODE_ENV === "production",
+    secure: true,
     maxAge: 30 * 24 * 60 * 60 * 1000,
   });
 
@@ -53,7 +53,7 @@ export const refreshTokenController = async (req, res) => {
   res.cookie("refreshToken", newRefreshToken, {
     httpOnly: true,
     sameSite: "none",
-    secure: process.env.NODE_ENV === "production",
+    secure: true,
     maxAge: 30 * 24 * 60 * 60 * 1000,
   });
 
@@ -103,7 +103,7 @@ export const loginWithGoogleController = async (req, res) => {
   // 🔐 refresh token cookie (normal login ile AYNI)
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    secure: true,
     maxAge: 30 * 24 * 60 * 60 * 1000,
     sameSite: "none",
   });
