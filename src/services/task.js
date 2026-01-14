@@ -1,3 +1,4 @@
+import createHttpError from "http-errors";
 import { Board } from "../db/models/boards.js";
 import { Column } from "../db/models/columns.js";
 import { Task } from "../db/models/tasks.js";
@@ -48,18 +49,7 @@ export const createTaskService = async (
 };
 
 export const editTaskService = async (taskId, taskData, userId) => {
-  const { title, description, priority, deadline, order, columnId, boardId } =
-    taskData;
-
-  const board = await Board.findOne({ _id: boardId, userId });
-  if (!board) {
-    throw createHttpError(404, "Board not found");
-  }
-
-  const column = await Column.findOne({ _id: columnId, boardId });
-  if (!column) {
-    throw createHttpError(404, "Column not found in this board");
-  }
+  const { title, description, priority, deadline, order } = taskData;
 
   const updatedTask = await Task.findByIdAndUpdate(
     taskId,
@@ -69,8 +59,23 @@ export const editTaskService = async (taskId, taskData, userId) => {
       priority,
       deadline,
       order,
-      columnId,
     },
+    { new: true }
+  );
+
+  if (!updatedTask) {
+    throw createHttpError(404, "Task not found");
+  }
+
+  return updatedTask;
+};
+
+export const forwardCardService = async (taskId, taskData) => {
+  const { columnId } = taskData;
+
+  const updatedTask = await Task.findByIdAndUpdate(
+    taskId,
+    { columnId },
     { new: true }
   );
 

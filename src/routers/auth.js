@@ -68,8 +68,8 @@ router.use(authMiddleware);
 router.post("/logout", ctrlWrapper(logoutController));
 
 router.patch(
-  "/:userId",
-  upload.single("photo"),
+  "/",
+  upload.single("profilePhotoFile"),
   validateBody(updateUserSchema),
   ctrlWrapper(updateUserController)
 );

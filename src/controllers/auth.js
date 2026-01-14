@@ -28,7 +28,8 @@ export const loginUserController = async (req, res) => {
 
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
-    secure: "production",
+    sameSite: "lax",
+    secure: false,
     maxAge: 30 * 24 * 60 * 60 * 1000,
   });
 
@@ -51,7 +52,8 @@ export const refreshTokenController = async (req, res) => {
 
   res.cookie("refreshToken", newRefreshToken, {
     httpOnly: true,
-    secure: "production",
+    sameSite: "lax",
+    secure: false,
     maxAge: 30 * 24 * 60 * 60 * 1000,
   });
 

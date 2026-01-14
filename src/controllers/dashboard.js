@@ -16,6 +16,7 @@ import {
   createTaskService,
   deleteTaskService,
   editTaskService,
+  forwardCardService,
   getTasksByUser,
 } from "../services/task.js";
 
@@ -133,6 +134,16 @@ export const createTask = async (req, res) => {
 export const editTask = async (req, res) => {
   const taskId = req.params.taskId;
   const updatedTask = await editTaskService(taskId, req.body, req.user.id);
+  res.json({
+    status: 200,
+    message: "Task updated successfully!",
+    data: updatedTask,
+  });
+};
+
+export const forwardCardController = async (req, res) => {
+  const taskId = req.params.taskId;
+  const updatedTask = await forwardCardService(taskId, req.body, req.user.id);
   res.json({
     status: 200,
     message: "Task updated successfully!",

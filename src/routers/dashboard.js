@@ -14,6 +14,7 @@ import {
   getBoardNames,
   getColumnNames,
   getWorkspaceData,
+  forwardCardController,
 } from "../controllers/dashboard.js";
 import {
   createBoardSchema,
@@ -22,6 +23,7 @@ import {
   editBoardSchema,
   editColumnSchema,
   editTaskSchema,
+  forwardCard,
 } from "../validation/dashboard.js";
 import ctrlWrapper from "../utils/ctrlWrapper.js";
 
@@ -79,6 +81,12 @@ router.patch(
   "/tasks/:taskId",
   validateBody(editTaskSchema),
   ctrlWrapper(editTask)
+);
+
+router.patch(
+  "/tasks/:taskId/forward",
+  validateBody(forwardCard),
+  ctrlWrapper(forwardCardController)
 );
 
 router.delete("/tasks/:taskId", ctrlWrapper(deleteTask));
