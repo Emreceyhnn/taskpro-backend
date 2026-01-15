@@ -1,4 +1,4 @@
-import { needHelpService } from "../services/needHelp";
+import { needHelpService } from "../services/needHelp.js";
 
 export const needHelpController = async (req, res) => {
   const needHelp = await needHelpService(req.body);
