@@ -152,7 +152,7 @@ export const loginOrSignupWithGoogle = async (code) => {
     userId: user._id,
     accessToken,
     refreshToken,
-    accessTokenValidUntil: new Date(Date.now() + 15 * 60 * 1000),
+    accessTokenValidUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
     refreshTokenValidUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
   });
 
