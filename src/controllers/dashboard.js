@@ -29,10 +29,13 @@ export const getWorkspaceData = async (req, res) => {
   const columns = await getColumnsByUser(userId);
   const tasks = await getTasksByUser(userId);
 
+  const isEmpty = boards.length === 0;
+
   res.json({
     boards,
     columns,
     tasks,
+    isEmpty,
   });
 };
 
