@@ -1,0 +1,44 @@
+type: object
+required:
+  - _id
+  - boardId
+  - name
+  - order
+  - createdAt
+  - updatedAt
+
+properties:
+  _id:
+    type: string
+    description: Unique identifier of the column
+    example: "65ab42e4f1c8a91234567890"
+    readOnly: true
+
+  boardId:
+    type: string
+    description: Related board ID
+    example: "65a7c1e2f4a8b9c123456789"
+
+  name:
+    type: string
+    description: Column name
+    example: "In Progress"
+
+  order:
+    type: number
+    description: Column order within the board
+    example: 2
+
+  createdAt:
+    type: string
+    format: date-time
+    description: Column creation date
+    example: "2026-01-15T17:40:00.000Z"
+    readOnly: true
+
+  updatedAt:
+    type: string
+    format: date-time
+    description: Column last update date
+    example: "2026-01-15T18:05:30.000Z"
+    readOnly: true

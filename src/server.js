@@ -7,11 +7,13 @@ import authRouter from "./routers/auth.js";
 import dashboardRouter from "./routers/dashboard.js";
 import { UPLOAD_DIR } from "./constants/index.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
+import { swaggerMiddleware } from "./middlewares/swagger.js";
 
 export const setupServer = () => {
   const app = express();
   const PORT = process.env.PORT || 5000;
 
+  app.use("/api/docs", ...swaggerMiddleware);
   app.use(express.json());
   app.use(
     cors({

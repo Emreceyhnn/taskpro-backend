@@ -1,0 +1,72 @@
+type: object
+required:
+  - _id
+  - boardId
+  - columnId
+  - title
+  - priority
+  - createdAt
+  - updatedAt
+
+properties:
+  _id:
+    type: string
+    description: Unique identifier of the task
+    example: "65a8d2e4f1c9a91234567890"
+    readOnly: true
+
+  boardId:
+    type: string
+    description: Related board ID
+    example: "65a7c1e2f4a8b9c123456789"
+
+  columnId:
+    type: string
+    description: Related column ID
+    example: "65a7c2f9e4a8b9c987654321"
+
+  title:
+    type: string
+    description: Task title
+    example: "Fix authorization bug"
+
+  description:
+    type: string
+    description: Detailed task description
+    example: "Token refresh fails on production environment"
+
+  priority:
+    type: string
+    description: Task priority level
+    enum:
+      - low
+      - medium
+      - high
+      - none
+    default: low
+    example: high
+
+  deadline:
+    type: string
+    format: date-time
+    description: Task deadline
+    example: "2026-01-20T23:59:00.000Z"
+
+  order:
+    type: number
+    description: Task order inside the column
+    example: 3
+
+  createdAt:
+    type: string
+    format: date-time
+    description: Task creation date
+    example: "2026-01-15T18:30:00.000Z"
+    readOnly: true
+
+  updatedAt:
+    type: string
+    format: date-time
+    description: Last update date
+    example: "2026-01-15T19:10:45.000Z"
+    readOnly: true

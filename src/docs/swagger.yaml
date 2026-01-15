@@ -1,0 +1,66 @@
+paths:
+  /dashboard:
+    $ref: "./paths/dashboard.yaml#/workspace"
+
+  /dashboard/boards:
+    $ref: "./paths/dashboard.yaml#/board-names"
+  /dashboard/boards:
+    post:
+      $ref: "./paths/dashboard.yaml#/create-board"
+
+  /dashboard/boards/{boardId}:
+    patch:
+      $ref: "./paths/dashboard.yaml#/edit-board"
+    delete:
+      $ref: "./paths/dashboard.yaml#/delete-board"
+
+  /dashboard/boards/{boardId}/columns:
+    get:
+      $ref: "./paths/dashboard.yaml#/column-names"
+    post:
+      $ref: "./paths/dashboard.yaml#/create-column"
+
+  /dashboard/columns/{columnId}:
+    patch:
+      $ref: "./paths/dashboard.yaml#/edit-column"
+    delete:
+      $ref: "./paths/dashboard.yaml#/delete-column"
+
+  /dashboard/boards/{boardId}/columns/{columnId}/tasks:
+    post:
+      $ref: "./paths/dashboard.yaml#/create-task"
+
+  /dashboard/tasks/{taskId}:
+    patch:
+      $ref: "./paths/dashboard.yaml#/edit-task"
+    delete:
+      $ref: "./paths/dashboard.yaml#/delete-task"
+
+  /dashboard/tasks/{taskId}/forward:
+    patch:
+      $ref: "./paths/dashboard.yaml#/forward-task"
+
+  /auth/register:
+    $ref: "./paths/auth.yaml#/register"
+  /auth/login:
+    $ref: "./paths/auth.yaml#/login"
+  /auth/refresh-token:
+    $ref: "./paths/auth.yaml#/refresh-token"
+  /auth/get-oauth-url:
+    $ref: "./paths/auth.yaml#/get-oauth-url"
+  /auth/confirm-oauth:
+    $ref: "./paths/auth.yaml#/confirm-oauth"
+  /auth/logout:
+    $ref: "./paths/auth.yaml#/logout"
+  /auth:
+    $ref: "./paths/auth.yaml#/update-user"
+  /auth/current/profile:
+    $ref: "./paths/auth.yaml#/current-profile"
+  /auth/current:
+    $ref: "./paths/auth.yaml#/current"
+  /auth/request-reset-email:
+    $ref: "./paths/auth.yaml#/request-reset-email"
+  /auth/reset-password:
+    $ref: "./paths/auth.yaml#/reset-password"
+  /auth/needHelp:
+    $ref: "./paths/auth.yaml#/needHelp"

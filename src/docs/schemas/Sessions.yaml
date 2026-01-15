@@ -1,0 +1,60 @@
+type: object
+required:
+  - _id
+  - userId
+  - accessToken
+  - refreshToken
+  - accessTokenValidUntil
+  - refreshTokenValidUntil
+  - createdAt
+  - updatedAt
+
+properties:
+  _id:
+    type: string
+    description: Unique identifier of the session
+    example: "65a9e3f4b1c8a91234567890"
+    readOnly: true
+
+  userId:
+    type: string
+    description: Related user ID
+    example: "65a7c1e2f4a8b9c123456789"
+
+  accessToken:
+    type: string
+    description: JWT access token
+    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    writeOnly: true
+
+  refreshToken:
+    type: string
+    description: JWT refresh token
+    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    writeOnly: true
+
+  accessTokenValidUntil:
+    type: string
+    format: date-time
+    description: Access token expiration date
+    example: "2026-01-15T19:00:00.000Z"
+
+  refreshTokenValidUntil:
+    type: string
+    format: date-time
+    description: Refresh token expiration date
+    example: "2026-02-15T19:00:00.000Z"
+
+  createdAt:
+    type: string
+    format: date-time
+    description: Session creation date
+    example: "2026-01-15T18:55:00.000Z"
+    readOnly: true
+
+  updatedAt:
+    type: string
+    format: date-time
+    description: Session last update date
+    example: "2026-01-15T18:58:30.000Z"
+    readOnly: true
