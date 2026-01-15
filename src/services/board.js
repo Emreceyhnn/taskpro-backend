@@ -6,10 +6,6 @@ import { Task } from "../db/models/tasks.js";
 export const getBoardsByUser = async (userId) => {
   const boards = await Board.find({ userId }).sort({ createdAt: -1 });
 
-  if (boards.length === 0) {
-    throw createHttpError(404, "No boards found for this user");
-  }
-
   return boards;
 };
 
