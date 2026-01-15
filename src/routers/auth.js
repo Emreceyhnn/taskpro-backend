@@ -17,6 +17,7 @@ import {
   createUserSchema,
   loginUserSchema,
   loginWithGoogleOAuthSchema,
+  needHelp,
   requestResetEmailSchema,
   resetPasswordSchema,
   updateUserSchema,
@@ -24,6 +25,7 @@ import {
 import ctrlWrapper from "../utils/ctrlWrapper.js";
 import authMiddleware from "../middlewares/authMiddleware.js";
 import { upload } from "../middlewares/multer.js";
+import { needHelpController } from "../controllers/needHelp.js";
 
 const router = Router();
 
@@ -87,6 +89,12 @@ router.post(
   "/reset-password",
   validateBody(resetPasswordSchema),
   ctrlWrapper(resetPasswordController)
+);
+
+router.post(
+  "/needHelp",
+  validateBody(needHelp),
+  ctrlWrapper(needHelpController)
 );
 
 export default router;
