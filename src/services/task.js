@@ -6,9 +6,9 @@ import { Task } from "../db/models/tasks.js";
 export const getTasksByUser = async (boardId, columnId, userId) => {
   const tasks = await Task.find({ userId }).sort({ order: 1 });
 
-  if (tasks.length === 0) {
-    throw createHttpError(404, "No tasks found for this column");
-  }
+  // if (tasks.length === 0) {
+  //   throw createHttpError(404, "No tasks found for this column");
+  // }
 
   return tasks;
 };
