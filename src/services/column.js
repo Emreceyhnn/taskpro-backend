@@ -6,9 +6,9 @@ import { Board } from "../db/models/boards.js";
 export const getColumnsByUser = async (userId) => {
   const columns = await Column.find({ userId }).sort({ order: 1 });
 
-  if (columns.length === 0) {
-    throw createHttpError(404, "No columns found for this board");
-  }
+  // if (columns.length === 0) {
+  //   throw createHttpError(404, "No columns found for this board");
+  // }
 
   return columns;
 };
