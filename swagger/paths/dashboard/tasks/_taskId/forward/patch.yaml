@@ -34,4 +34,4 @@ responses:
             message:
               type: string
             data:
-              $ref: "#/components/schemas/Task"
+              $ref: ../../../../../components/schemas/tasks.yaml
