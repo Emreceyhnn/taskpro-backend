@@ -1,0 +1,14 @@
+post:
+  tags: [Support]
+  summary: Send help request
+  security:
+    - bearerAuth: []
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/needHelp.yaml
+  responses:
+    "200":
+      description: Help request sent

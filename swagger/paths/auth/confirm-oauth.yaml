@@ -1,0 +1,33 @@
+post:
+  tags: [Auth]
+  summary: Login via Google OAuth
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required: [code]
+          properties:
+            code: { type: string }
+  responses:
+    "200":
+      description: OAuth login success
+      headers:
+        Set-Cookie:
+          schema: { type: string }
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status: { type: integer }
+              message: { type: string }
+              data:
+                type: object
+                properties:
+                  accessToken: { type: string }
+                  user:
+                    $ref: ../../components/schemas/users.yaml
+    "400":
+      description: OAuth code missing

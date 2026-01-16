@@ -1,0 +1,127 @@
+openapi: 3.1.0
+
+info:
+  version: 1.0.0
+  title: TaskPro Backend API
+  description: >
+    This is the official API documentation for TaskPro application.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: http://localhost:3000
+    description: Local
+  - url: https://taskpro-backend-57d3.onrender.com
+    description: Production
+
+tags:
+  - name: Auth
+    description: Authentication & authorization
+  - name: User
+    description: User profile operations
+  - name: Dashboard
+    description: Workspace aggregated data
+  - name: Board
+    description: Board operations
+  - name: Column
+    description: Column operations
+  - name: Task
+    description: Task operations
+  - name: Support
+    description: Support & help requests
+
+paths:
+  # ---------- AUTH ----------
+  /auth/register:
+    $ref: ../swagger/paths/auth/register.yaml
+
+  /auth/login:
+    $ref: "../swagger/paths/auth/login.yaml"
+
+  /auth/refresh-token:
+    $ref: "../swagger/paths/auth/refresh-token.yaml"
+
+  /auth/logout:
+    $ref: "../swagger/paths/auth/logout.yaml"
+
+  /auth/get-oauth-url:
+    $ref: "../swagger/paths/auth/get-oauth-url.yaml"
+
+  /auth/confirm-oauth:
+    $ref: "../swagger/paths/auth/confirm-oauth.yaml"
+
+  # ---------- USER ----------
+  /auth:
+    $ref: "../swagger/paths/auth/patch.yaml"
+
+  /auth/current:
+    $ref: "../swagger/paths/auth/current/get.yaml"
+
+  /auth/current/profile:
+    $ref: ../swagger/paths/auth/current/profile/get.yaml
+
+  /auth/needHelp:
+    $ref: ../swagger/paths/auth/needHelp.yaml
+
+  # ---------- DASHBOARD ----------
+  /dashboard:
+    $ref: ../swagger/paths/dashboard/get.yaml
+
+  # ---------- BOARD ----------
+  /dashboard/boards:
+    $ref: ../swagger/paths/dashboard/boards/post.yaml
+
+  /dashboard/boards/{boardId}:
+    patch:
+      $ref: "../swagger/paths/dashboard/boards/_boardId/patch.yaml"
+    delete:
+      $ref: "../swagger/paths/dashboard/boards/_boardId/delete.yaml"
+
+  # ---------- COLUMN ----------
+  /dashboard/boards/{boardId}/columns:
+    $ref: ../swagger/paths/dashboard/boards/_boardId/columns/post.yaml
+
+  /dashboard/columns/{columnId}:
+    patch:
+      $ref: "../swagger/paths/dashboard/columns/_columnId/patch.yaml"
+    delete:
+      $ref: "../swagger/paths/dashboard/columns/_columnId/delete.yaml"
+
+  # ---------- TASK ----------
+  /dashboard/boards/{boardId}/columns/{columnId}/tasks:
+    $ref: ../swagger/paths/dashboard/boards/_boardId/columns/_columnId/tasks/post.yaml
+
+  /dashboard/tasks/{taskId}:
+    patch:
+      $ref: "../swagger/paths/dashboard/tasks/_taskId/patch.yaml"
+    delete:
+      $ref: "../swagger/paths/dashboard/tasks/_taskId/delete.yaml"
+
+  /dashboard/tasks/{taskId}/forward:
+    patch:
+      $ref: "../swagger/paths/dashboard/tasks/_taskId/forward/patch.yaml"
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    User:
+      $ref: "../swagger/components/schemas/users.yaml"
+    Board:
+      $ref: ../swagger/components/schemas/boards.yaml
+    Column:
+      $ref: ../swagger/components/schemas/columns.yaml
+    Task:
+      $ref: ../swagger/components/schemas/tasks.yaml
+    Session:
+      $ref: ../swagger/components/schemas/sessions.yaml
+    NeedHelp:
+      $ref: ../swagger/components/schemas/needHelp.yaml
+
+security:
+  - bearerAuth: []

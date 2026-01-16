@@ -1,0 +1,53 @@
+type: object
+required:
+  - _id
+  - name
+  - email
+  - password
+  - theme
+  - createdAt
+  - updatedAt
+
+properties:
+  _id:
+    type: string
+    example: "65a1fc77e4b0a12d34f44444"
+
+  name:
+    type: string
+    example: "Emre Ceyhan"
+
+  email:
+    type: string
+    format: email
+    example: "user@mail.com"
+
+  password:
+    type: string
+    description: Hashed password
+    example: "$2b$10$abc..."
+    writeOnly: true
+
+  photo:
+    type: string
+    default: ""
+    example: "https://cdn.example.com/avatar.png"
+
+  theme:
+    type: string
+    enum:
+      - light
+      - dark
+      - system
+    default: dark
+    example: dark
+
+  createdAt:
+    type: string
+    format: date-time
+    example: "2026-01-16T13:00:00.000Z"
+
+  updatedAt:
+    type: string
+    format: date-time
+    example: "2026-01-16T13:00:00.000Z"

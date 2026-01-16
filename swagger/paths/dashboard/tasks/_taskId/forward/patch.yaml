@@ -1,0 +1,37 @@
+operationId: forwardCard
+tags: [Task]
+summary: Move task to another column
+security:
+  - bearerAuth: []
+
+parameters:
+  - name: taskId
+    in: path
+    required: true
+    schema:
+      type: string
+
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          movedColumnId:
+            type: string
+
+responses:
+  "200":
+    description: Task moved
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+            message:
+              type: string
+            data:
+              $ref: "#/components/schemas/Task"

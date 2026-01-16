@@ -1,0 +1,29 @@
+operationId: EditColumn
+tags: [Column]
+summary: Edit column
+security:
+  - bearerAuth: []
+parameters:
+  - name: columnId
+    in: path
+    required: true
+    schema:
+      type: string
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+responses:
+  "200":
+    description: Column updated
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status: { type: integer }
+            message: { type: string }
+            data:
+              $ref: "../../../../components/schemas/columns.yaml"

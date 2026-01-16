@@ -1,0 +1,23 @@
+post:
+  tags: [Board]
+  summary: Create board
+  security:
+    - bearerAuth: []
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "../../../components/schemas/boards.yaml"
+  responses:
+    "201":
+      description: Board created
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status: { type: integer }
+              message: { type: string }
+              data:
+                $ref: "../../../components/schemas/boards.yaml"

@@ -4,6 +4,7 @@ import createHttpError from "http-errors";
 import { User } from "../db/models/user.js";
 import { Session } from "../db/models/sessions.js";
 import { randomBytes } from "node:crypto";
+import jwt from "jsonwebtoken";
 import {
   getFullNameFromGoogleTokenPayload,
   validateCode,
@@ -211,7 +212,7 @@ export const updateUserService = async (userId, updateData) => {
 
 export const getUserProfileService = async (userId) => {
   const user = await User.findById(userId).select(
-    "name email photo theme createdAt password"
+    "name email photo theme createdAt password",
   );
 
   if (!user) {
@@ -223,7 +224,7 @@ export const getUserProfileService = async (userId) => {
 
 export const getCurrentUserService = async (userId) => {
   const user = await User.findById(userId).select(
-    "name email photo theme createdAt"
+    "name email photo theme createdAt",
   );
 
   if (!user) {
@@ -247,7 +248,7 @@ export const requestResetToken = async (email) => {
     {
       expiresIn: "5m",
       subject: user._id.toString(),
-    }
+    },
   );
 
   const html = `

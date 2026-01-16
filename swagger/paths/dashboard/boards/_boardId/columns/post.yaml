@@ -1,0 +1,29 @@
+post:
+  tags: [Column]
+  summary: Create column
+  security:
+    - bearerAuth: []
+  parameters:
+    - name: boardId
+      in: path
+      required: true
+      schema:
+        type: string
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "../../../../../components/schemas/columns.yaml"
+  responses:
+    "201":
+      description: Column created
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status: { type: integer }
+              message: { type: string }
+              data:
+                $ref: "../../../../../components/schemas/columns.yaml"

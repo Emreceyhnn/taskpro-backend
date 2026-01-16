@@ -1,0 +1,17 @@
+get:
+  tags: [Auth]
+  summary: Get Google OAuth URL
+  responses:
+    "200":
+      description: OAuth URL generated
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status: { type: integer }
+              message: { type: string }
+              data:
+                type: object
+                properties:
+                  url: { type: string }

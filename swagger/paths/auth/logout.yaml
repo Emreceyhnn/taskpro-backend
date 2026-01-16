@@ -1,0 +1,8 @@
+post:
+  tags: [Auth]
+  summary: Logout user
+  security:
+    - bearerAuth: []
+  responses:
+    "204":
+      description: Logged out

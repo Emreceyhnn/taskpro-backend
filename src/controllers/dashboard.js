@@ -39,18 +39,6 @@ export const getWorkspaceData = async (req, res) => {
   });
 };
 
-export const getColumnNames = async (req, res) => {
-  const boardId = req.params.boardId;
-  const columns = await getColumnNamesByBoard(boardId, req.user.id);
-  res.json({ columns });
-};
-
-export const getBoardNames = async (req, res) => {
-  const userId = req.user.id;
-  const boards = await getBoardNamesByUser(userId);
-  res.json({ boards });
-};
-
 /* ---------------------------------- BOARD --------------------------------- */
 
 export const createBoard = async (req, res) => {
@@ -98,7 +86,7 @@ export const editColumn = async (req, res) => {
   const updatedColumn = await editColumnService(
     columnId,
     req.body,
-    req.user.id
+    req.user.id,
   );
   res.json({
     status: 200,
@@ -125,7 +113,7 @@ export const createTask = async (req, res) => {
     req.body,
     req.user.id,
     columnId,
-    boardId
+    boardId,
   );
   res.status(201).json({
     status: 201,

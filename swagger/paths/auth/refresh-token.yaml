@@ -1,0 +1,22 @@
+post:
+  tags: [Auth]
+  summary: Refresh session
+  responses:
+    "200":
+      description: Session refreshed
+      headers:
+        Set-Cookie:
+          schema: { type: string }
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status: { type: integer }
+              message: { type: string }
+              data:
+                type: object
+                properties:
+                  accessToken: { type: string }
+    "401":
+      description: Refresh token not found

@@ -1,0 +1,32 @@
+post:
+  tags: [Task]
+  summary: Create task
+  security:
+    - bearerAuth: []
+  parameters:
+    - name: boardId
+      in: path
+      required: true
+      schema: { type: string }
+    - name: columnId
+      in: path
+      required: true
+      schema: { type: string }
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "../../../../../../../components/schemas/tasks.yaml"
+  responses:
+    "201":
+      description: Task created
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status: { type: integer }
+              message: { type: string }
+              data:
+                $ref: "../../../../../../../components/schemas/tasks.yaml"

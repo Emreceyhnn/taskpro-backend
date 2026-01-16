@@ -1,0 +1,49 @@
+post:
+  operationId: registerUser
+  tags:
+    - Auth
+  summary: Register new user
+  description: Creates a new user account
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - name
+            - email
+            - password
+          properties:
+            name:
+              type: string
+              example: "Emre Ceyhan"
+            email:
+              type: string
+              format: email
+              example: "user@mail.com"
+            password:
+              type: string
+              format: password
+              example: "123456"
+  responses:
+    "201":
+      description: User successfully registered
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 201
+              message:
+                type: string
+                example: "Successfully registered a user!"
+              data:
+                $ref: ../../components/schemas/users.yaml
+
+    "400":
+      description: Validation error
+    "409":
+      description: Email already exists

@@ -1,0 +1,32 @@
+patch:
+  tags: [User]
+  summary: Update current user
+  security:
+    - bearerAuth: []
+  requestBody:
+    required: true
+    content:
+      multipart/form-data:
+        schema:
+          type: object
+          properties:
+            name: { type: string }
+            email: { type: string }
+            theme:
+              type: string
+              enum: [light, dark, system]
+            profilePhotoFile:
+              type: string
+              format: binary
+  responses:
+    "200":
+      description: User updated
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status: { type: integer }
+              message: { type: string }
+              data:
+                $ref: ../../components/schemas/users.yaml

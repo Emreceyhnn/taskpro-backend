@@ -1,0 +1,41 @@
+type: object
+required:
+  - _id
+  - title
+  - userId
+  - createdAt
+  - updatedAt
+
+properties:
+  _id:
+    type: string
+    example: "65a1f2c9e4b0a12d34f56789"
+
+  title:
+    type: string
+    example: "My Board"
+
+  userId:
+    type: string
+    description: MongoDB ObjectId reference to User
+    example: "65a1f2b7e4b0a12d34f12345"
+
+  icon:
+    type: string
+    default: "none"
+    example: "none"
+
+  background:
+    type: string
+    default: "none"
+    example: "none"
+
+  createdAt:
+    type: string
+    format: date-time
+    example: "2026-01-15T18:22:10.123Z"
+
+  updatedAt:
+    type: string
+    format: date-time
+    example: "2026-01-15T18:22:10.123Z"

@@ -1,0 +1,19 @@
+type: object
+required:
+  - _id
+  - email
+  - comment
+
+properties:
+  _id:
+    type: string
+    example: "65a1f6a9e4b0a12d34f11111"
+
+  email:
+    type: string
+    format: email
+    example: "user@mail.com"
+
+  comment:
+    type: string
+    example: "I need help with my board"

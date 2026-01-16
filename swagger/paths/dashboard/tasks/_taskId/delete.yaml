@@ -1,0 +1,13 @@
+operationId: deleteTask
+tags: [Task]
+summary: Delete task
+security:
+  - bearerAuth: []
+parameters:
+  - name: taskId
+    in: path
+    required: true
+    schema: { type: string }
+responses:
+  "200":
+    description: Task deleted

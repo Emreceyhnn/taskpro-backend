@@ -1,0 +1,48 @@
+type: object
+required:
+  - _id
+  - userId
+  - accessToken
+  - refreshToken
+  - accessTokenValidUntil
+  - refreshTokenValidUntil
+  - createdAt
+  - updatedAt
+
+properties:
+  _id:
+    type: string
+    example: "65a1f8b2e4b0a12d34f22222"
+
+  userId:
+    type: string
+    description: MongoDB ObjectId reference to User
+    example: "65a1f2b7e4b0a12d34f12345"
+
+  accessToken:
+    type: string
+    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+
+  refreshToken:
+    type: string
+    example: "d1c9c6b4a7e8f9..."
+
+  accessTokenValidUntil:
+    type: string
+    format: date-time
+    example: "2026-01-16T10:30:00.000Z"
+
+  refreshTokenValidUntil:
+    type: string
+    format: date-time
+    example: "2026-02-16T10:30:00.000Z"
+
+  createdAt:
+    type: string
+    format: date-time
+    example: "2026-01-16T10:00:00.000Z"
+
+  updatedAt:
+    type: string
+    format: date-time
+    example: "2026-01-16T10:00:00.000Z"

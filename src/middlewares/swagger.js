@@ -1,12 +1,17 @@
-import swaggerUi from "swagger-ui-express";
-import YAML from "yamljs";
-import path from "path";
+// src/middlewares/swaggerDocs.js
 
-const swaggerDocument = YAML.load(
-  path.join(process.cwd(), "src/docs/swagger.yaml")
-);
+import createHttpError from "http-errors";
+import swaggerUI from "swagger-ui-express";
+import fs from "node:fs";
 
-export const swaggerMiddleware = [
-  swaggerUi.serve,
-  swaggerUi.setup(swaggerDocument),
-];
+import { SWAGGER_PATH } from "../constants/index.js";
+
+export const swaggerDocs = () => {
+  try {
+    const swaggerDoc = JSON.parse(fs.readFileSync(SWAGGER_PATH).toString());
+    return [...swaggerUI.serve, swaggerUI.setup(swaggerDoc)];
+  } catch (err) {
+    return (req, res, next) =>
+      next(createHttpError(500, "Can't load swagger docs"));
+  }
+};

@@ -10,7 +10,10 @@
     "dev": "nodemon src/index.js",
     "start": "node src/index.js",
     "lint": "eslint .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run build-docs",
+    "build-docs": "redocly bundle --ext json -o docs/swagger.json",
+    "preview-docs": "redocly preview-docs"
   },
   "dependencies": {
     "@eslint/js": "^9.39.2",
@@ -37,5 +40,8 @@
     "sib-api-v3-sdk": "^8.5.0",
     "swagger-ui-express": "^5.0.1",
     "yamljs": "^0.3.0"
+  },
+  "devDependencies": {
+    "@redocly/cli": "^2.14.5"
   }
 }

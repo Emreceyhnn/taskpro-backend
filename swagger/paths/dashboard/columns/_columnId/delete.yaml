@@ -1,0 +1,14 @@
+operationId: deleteColumn
+tags: [Column]
+summary: Delete column
+security:
+  - bearerAuth: []
+parameters:
+  - name: columnId
+    in: path
+    required: true
+    schema:
+      type: string
+responses:
+  "200":
+    description: Column deleted

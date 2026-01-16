@@ -7,19 +7,18 @@ import authRouter from "./routers/auth.js";
 import dashboardRouter from "./routers/dashboard.js";
 import { UPLOAD_DIR } from "./constants/index.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
-import { swaggerMiddleware } from "./middlewares/swagger.js";
+import { swaggerDocs } from "./middlewares/swagger.js";
 
 export const setupServer = () => {
   const app = express();
   const PORT = process.env.PORT || 5000;
 
-  app.use("/api/docs", ...swaggerMiddleware);
   app.use(express.json());
   app.use(
     cors({
       origin: "https://taskpro-omega.vercel.app",
       credentials: true,
-    })
+    }),
   );
   app.use(cookieParser());
   app.use(
@@ -28,12 +27,13 @@ export const setupServer = () => {
         target: "pino-pretty",
         options: { colorize: true },
       },
-    })
+    }),
   );
 
   app.use("/auth", authRouter);
   app.use("/dashboard", dashboardRouter);
   app.use("/uploads", express.static(UPLOAD_DIR));
+  app.use("/api-docs", swaggerDocs());
   app.use(errorHandler);
 
   app.listen(PORT, () => {

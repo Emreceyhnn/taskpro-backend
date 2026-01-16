@@ -1,0 +1,61 @@
+type: object
+required:
+  - _id
+  - boardId
+  - columnId
+  - title
+  - priority
+  - createdAt
+  - updatedAt
+
+properties:
+  _id:
+    type: string
+    example: "65a1fa12e4b0a12d34f33333"
+
+  boardId:
+    type: string
+    description: MongoDB ObjectId reference to Board
+    example: "65a1f2c9e4b0a12d34f56789"
+
+  columnId:
+    type: string
+    description: MongoDB ObjectId reference to Column
+    example: "65a1f4d9e4b0a12d34f98765"
+
+  title:
+    type: string
+    example: "Fix login bug"
+
+  description:
+    type: string
+    example: "Login fails when token expires"
+
+  priority:
+    type: string
+    enum:
+      - low
+      - medium
+      - high
+      - none
+    default: low
+    example: medium
+
+  deadline:
+    type: string
+    format: date-time
+    example: "2026-01-20T18:00:00.000Z"
+
+  order:
+    type: integer
+    example: 3
+
+  createdAt:
+    type: string
+    format: date-time
+    example: "2026-01-16T12:10:00.000Z"
+
+  updatedAt:
+    type: string
+    format: date-time
+    example: "2026-01-16T12:10:00.000Z"

@@ -9,8 +9,6 @@ import {
   loginWithGoogleController,
   updateUserController,
   getUserProfileController,
-  requestResetEmailController,
-  resetPasswordController,
   getCurrentUserController,
 } from "../controllers/auth.js";
 import {
@@ -18,8 +16,6 @@ import {
   loginUserSchema,
   loginWithGoogleOAuthSchema,
   needHelp,
-  requestResetEmailSchema,
-  resetPasswordSchema,
   updateUserSchema,
 } from "../validation/auth.js";
 import ctrlWrapper from "../utils/ctrlWrapper.js";
@@ -32,13 +28,13 @@ const router = Router();
 router.post(
   "/register",
   validateBody(createUserSchema),
-  ctrlWrapper(registerUserController)
+  ctrlWrapper(registerUserController),
 );
 
 router.post(
   "/login",
   validateBody(loginUserSchema),
-  ctrlWrapper(loginUserController)
+  ctrlWrapper(loginUserController),
 );
 
 router.post("/refresh-token", ctrlWrapper(refreshTokenController));
@@ -48,7 +44,7 @@ router.get("/get-oauth-url", ctrlWrapper(getGoogleOAuthUrlController));
 router.post(
   "/confirm-oauth",
   validateBody(loginWithGoogleOAuthSchema),
-  ctrlWrapper(loginWithGoogleController)
+  ctrlWrapper(loginWithGoogleController),
 );
 
 router.get("/confirm-oauth", (req, res) => {
@@ -73,28 +69,16 @@ router.patch(
   "/",
   upload.single("profilePhotoFile"),
   validateBody(updateUserSchema),
-  ctrlWrapper(updateUserController)
+  ctrlWrapper(updateUserController),
 );
 
 router.get("/current/profile", ctrlWrapper(getUserProfileController));
 router.get("/current", ctrlWrapper(getCurrentUserController));
 
 router.post(
-  "/request-reset-email",
-  validateBody(requestResetEmailSchema),
-  ctrlWrapper(requestResetEmailController)
-);
-
-router.post(
-  "/reset-password",
-  validateBody(resetPasswordSchema),
-  ctrlWrapper(resetPasswordController)
-);
-
-router.post(
   "/needHelp",
   validateBody(needHelp),
-  ctrlWrapper(needHelpController)
+  ctrlWrapper(needHelpController),
 );
 
 export default router;

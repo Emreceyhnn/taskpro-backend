@@ -11,8 +11,6 @@ import {
   createBoard,
   deleteBoard,
   editBoard,
-  getBoardNames,
-  getColumnNames,
   getWorkspaceData,
   forwardCardController,
 } from "../controllers/dashboard.js";
@@ -33,22 +31,18 @@ router.use(authMiddleware);
 
 router.get("/", ctrlWrapper(getWorkspaceData));
 
-router.get("/boards", ctrlWrapper(getBoardNames));
-
-router.get("/boards/:boardId/columns", ctrlWrapper(getColumnNames));
-
 /* ---------------------------------- BOARD --------------------------------- */
 
 router.post(
   "/boards",
   validateBody(createBoardSchema),
-  ctrlWrapper(createBoard)
+  ctrlWrapper(createBoard),
 );
 
 router.patch(
   "/boards/:boardId",
   validateBody(editBoardSchema),
-  ctrlWrapper(editBoard)
+  ctrlWrapper(editBoard),
 );
 
 router.delete("/boards/:boardId", ctrlWrapper(deleteBoard));
@@ -58,13 +52,13 @@ router.delete("/boards/:boardId", ctrlWrapper(deleteBoard));
 router.post(
   "/boards/:boardId/columns",
   validateBody(createColumnSchema),
-  ctrlWrapper(createColumn)
+  ctrlWrapper(createColumn),
 );
 
 router.patch(
   "/columns/:columnId",
   validateBody(editColumnSchema),
-  ctrlWrapper(editColumn)
+  ctrlWrapper(editColumn),
 );
 
 router.delete("/columns/:columnId", ctrlWrapper(deleteColumn));
@@ -74,19 +68,19 @@ router.delete("/columns/:columnId", ctrlWrapper(deleteColumn));
 router.post(
   "/boards/:boardId/columns/:columnId/tasks",
   validateBody(createTaskSchema),
-  ctrlWrapper(createTask)
+  ctrlWrapper(createTask),
 );
 
 router.patch(
   "/tasks/:taskId",
   validateBody(editTaskSchema),
-  ctrlWrapper(editTask)
+  ctrlWrapper(editTask),
 );
 
 router.patch(
   "/tasks/:taskId/forward",
   validateBody(forwardCard),
-  ctrlWrapper(forwardCardController)
+  ctrlWrapper(forwardCardController),
 );
 
 router.delete("/tasks/:taskId", ctrlWrapper(deleteTask));
