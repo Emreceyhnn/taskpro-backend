@@ -16,19 +16,26 @@ export const setupServer = () => {
   app.use(express.json());
   app.use(
     cors({
-      origin: "https://taskpro.emreceyhan.xyz",
+      origin: process.env.FRONTEND_URL || "https://taskpro.emreceyhan.xyz",
       credentials: true,
     }),
   );
   app.use(cookieParser());
   app.use(
     pino({
-      transport: {
-        target: "pino-pretty",
-        options: { colorize: true },
-      },
+      transport:
+        process.env.NODE_ENV === "development"
+          ? {
+              target: "pino-pretty",
+              options: { colorize: true },
+            }
+          : undefined,
     }),
   );
+
+  app.get("/health", (_req, res) => {
+    res.status(200).json({ status: "ok" });
+  });
 
   app.use("/auth", authRouter);
   app.use("/dashboard", dashboardRouter);
@@ -37,6 +44,7 @@ export const setupServer = () => {
   app.use(errorHandler);
 
   app.listen(PORT, () => {
+    // eslint-disable-next-line no-console
     console.log(`Server is running on port ${PORT}`);
   });
 };

@@ -3,13 +3,8 @@ import { Board } from "../db/models/boards.js";
 import { Column } from "../db/models/columns.js";
 import { Task } from "../db/models/tasks.js";
 
-export const getTasksByUser = async (boardId, columnId, userId) => {
+export const getTasksByUser = async (userId) => {
   const tasks = await Task.find({ userId }).sort({ order: 1 });
-
-  // if (tasks.length === 0) {
-  //   throw createHttpError(404, "No tasks found for this column");
-  // }
-
   return tasks;
 };
 
@@ -17,7 +12,7 @@ export const createTaskService = async (
   taskData,
   userId,
   columnId,
-  boardId
+  boardId,
 ) => {
   const { title, description, priority, deadline } = taskData;
 
@@ -31,11 +26,12 @@ export const createTaskService = async (
     throw createHttpError(404, "Column not found in this board");
   }
 
-  const lastColumn = await Column.findOne({ boardId }).sort({ order: -1 });
+  const lastTask = await Task.findOne({ columnId }).sort({ order: -1 });
 
-  const order = lastColumn ? lastColumn.order + 1 : 1;
+  const order = lastTask ? lastTask.order + 1 : 1;
 
   const task = await Task.create({
+    userId,
     boardId,
     columnId,
     title,
@@ -51,6 +47,16 @@ export const createTaskService = async (
 export const editTaskService = async (taskId, taskData, userId) => {
   const { title, description, priority, deadline, order } = taskData;
 
+  const task = await Task.findById(taskId);
+  if (!task) {
+    throw createHttpError(404, "Task not found");
+  }
+
+  const board = await Board.findOne({ _id: task.boardId, userId });
+  if (!board) {
+    throw createHttpError(403, "Access denied");
+  }
+
   const updatedTask = await Task.findByIdAndUpdate(
     taskId,
     {
@@ -60,12 +66,8 @@ export const editTaskService = async (taskId, taskData, userId) => {
       deadline,
       order,
     },
-    { new: true }
+    { new: true },
   );
-
-  if (!updatedTask) {
-    throw createHttpError(404, "Task not found");
-  }
 
   return updatedTask;
 };
@@ -76,7 +78,7 @@ export const forwardCardService = async (taskId, taskData) => {
   const updatedTask = await Task.findByIdAndUpdate(
     taskId,
     { columnId },
-    { new: true }
+    { new: true },
   );
 
   if (!updatedTask) {
@@ -86,10 +88,16 @@ export const forwardCardService = async (taskId, taskData) => {
   return updatedTask;
 };
 
-export const deleteTaskService = async (taskId) => {
-  const task = await Task.findByIdAndDelete(taskId);
+export const deleteTaskService = async (taskId, userId) => {
+  const task = await Task.findById(taskId);
   if (!task) {
     throw createHttpError(404, "Task not found");
   }
-  return;
+
+  const board = await Board.findOne({ _id: task.boardId, userId });
+  if (!board) {
+    throw createHttpError(403, "Access denied");
+  }
+
+  await task.deleteOne();
 };

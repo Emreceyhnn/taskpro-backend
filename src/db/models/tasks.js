@@ -4,6 +4,11 @@ const { Schema, model } = mongoose;
 
 const TaskSchema = new Schema(
   {
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
     boardId: {
       type: Schema.Types.ObjectId,
       ref: "Board",
@@ -27,7 +32,7 @@ const TaskSchema = new Schema(
     deadline: { type: Date },
     order: { type: Number },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export const Task = model("Task", TaskSchema);

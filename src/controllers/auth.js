@@ -6,8 +6,6 @@ import {
   logoutUserService,
   refreshSessionService,
   registerUserService,
-  requestResetToken,
-  resetPassword,
   updateUserService,
 } from "../services/auth.js";
 import { generateAuthUrl } from "../utils/googleOAuth2.js";
@@ -24,7 +22,7 @@ export const registerUserController = async (req, res) => {
 };
 
 export const loginUserController = async (req, res) => {
-  const { user, accessToken, refreshToken } = await loginUserService(req.body);
+  const { accessToken, refreshToken } = await loginUserService(req.body);
 
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,

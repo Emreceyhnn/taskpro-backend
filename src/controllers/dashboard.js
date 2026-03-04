@@ -2,14 +2,12 @@ import {
   createBoardService,
   deleteBoardService,
   editBoardService,
-  getBoardNamesByUser,
   getBoardsByUser,
 } from "../services/board.js";
 import {
   createColumnService,
   deleteColumnService,
   editColumnService,
-  getColumnNamesByBoard,
   getColumnsByUser,
 } from "../services/column.js";
 import {
@@ -23,7 +21,7 @@ import {
 ///GET
 
 export const getWorkspaceData = async (req, res) => {
-  const userId = req.user.id;
+  const userId = req.user._id;
 
   const boards = await getBoardsByUser(userId);
   const columns = await getColumnsByUser(userId);
@@ -42,7 +40,7 @@ export const getWorkspaceData = async (req, res) => {
 /* ---------------------------------- BOARD --------------------------------- */
 
 export const createBoard = async (req, res) => {
-  const newBoard = await createBoardService(req.body, req.user.id);
+  const newBoard = await createBoardService(req.body, req.user._id);
   res.status(201).json({
     status: 201,
     message: "Board created successfully!",
@@ -52,7 +50,7 @@ export const createBoard = async (req, res) => {
 
 export const editBoard = async (req, res) => {
   const boardId = req.params.boardId;
-  const updatedBoard = await editBoardService(boardId, req.body, req.user.id);
+  const updatedBoard = await editBoardService(boardId, req.body, req.user._id);
   res.json({
     status: 200,
     message: "Board updated successfully!",
@@ -62,7 +60,7 @@ export const editBoard = async (req, res) => {
 
 export const deleteBoard = async (req, res) => {
   const boardId = req.params.boardId;
-  await deleteBoardService(boardId, req.user.id);
+  await deleteBoardService(boardId, req.user._id);
   res.json({
     status: 200,
     message: "Board deleted successfully!",
@@ -73,7 +71,7 @@ export const deleteBoard = async (req, res) => {
 
 export const createColumn = async (req, res) => {
   const boardId = req.params.boardId;
-  const newColumn = await createColumnService(req.body, req.user.id, boardId);
+  const newColumn = await createColumnService(req.body, req.user._id, boardId);
   res.status(201).json({
     status: 201,
     message: "Column created successfully!",
@@ -86,7 +84,7 @@ export const editColumn = async (req, res) => {
   const updatedColumn = await editColumnService(
     columnId,
     req.body,
-    req.user.id,
+    req.user._id,
   );
   res.json({
     status: 200,
@@ -97,7 +95,7 @@ export const editColumn = async (req, res) => {
 
 export const deleteColumn = async (req, res) => {
   const columnId = req.params.columnId;
-  await deleteColumnService(columnId, req.user.id);
+  await deleteColumnService(columnId, req.user._id);
   res.json({
     status: 200,
     message: "Column deleted successfully!",
@@ -111,7 +109,7 @@ export const createTask = async (req, res) => {
   const boardId = req.params.boardId;
   const newTask = await createTaskService(
     req.body,
-    req.user.id,
+    req.user._id,
     columnId,
     boardId,
   );
@@ -124,7 +122,7 @@ export const createTask = async (req, res) => {
 
 export const editTask = async (req, res) => {
   const taskId = req.params.taskId;
-  const updatedTask = await editTaskService(taskId, req.body, req.user.id);
+  const updatedTask = await editTaskService(taskId, req.body, req.user._id);
   res.json({
     status: 200,
     message: "Task updated successfully!",
@@ -134,7 +132,7 @@ export const editTask = async (req, res) => {
 
 export const forwardCardController = async (req, res) => {
   const taskId = req.params.taskId;
-  const updatedTask = await forwardCardService(taskId, req.body, req.user.id);
+  const updatedTask = await forwardCardService(taskId, req.body);
   res.json({
     status: 200,
     message: "Task updated successfully!",
@@ -144,7 +142,7 @@ export const forwardCardController = async (req, res) => {
 
 export const deleteTask = async (req, res) => {
   const taskId = req.params.taskId;
-  await deleteTaskService(taskId, req.user.id);
+  await deleteTaskService(taskId, req.user._id);
   res.json({
     status: 200,
     message: "Task deleted successfully!",

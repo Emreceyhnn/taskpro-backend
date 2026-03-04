@@ -18,5 +18,6 @@ export const initMongoConnection = async () => {
   mongoose.set("strictQuery", true);
 
   await mongoose.connect(url);
+  // eslint-disable-next-line no-console
   console.log("Mongo connection successful");
 };

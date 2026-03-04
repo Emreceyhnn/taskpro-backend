@@ -11,6 +11,7 @@ const bootstrap = async () => {
 };
 
 bootstrap().catch((err) => {
+  // eslint-disable-next-line no-console
   console.error("Failed to bootstrap application:", err);
   process.exit(1);
 });

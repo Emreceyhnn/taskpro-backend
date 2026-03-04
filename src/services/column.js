@@ -25,7 +25,7 @@ export const createColumnService = async (columnData, userId, boardId) => {
   if (existingColumn) {
     throw createHttpError(
       409,
-      "Column with the same name already exists in this board"
+      "Column with the same name already exists in this board",
     );
   }
   const lastColumn = await Column.findOne({ boardId }).sort({ order: -1 });
@@ -33,6 +33,7 @@ export const createColumnService = async (columnData, userId, boardId) => {
   const order = lastColumn ? lastColumn.order + 1 : 1;
 
   return await Column.create({
+    userId,
     boardId,
     name,
     order,

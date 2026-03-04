@@ -1,4 +1,3 @@
-import crypto from "crypto";
 import bcrypt from "bcryptjs";
 import createHttpError from "http-errors";
 import { User } from "../db/models/user.js";
@@ -15,8 +14,8 @@ const ALLOWED_FIELDS = ["name", "email", "theme", "photo"];
 
 const generateTokens = () => {
   return {
-    accessToken: crypto.randomBytes(64).toString("hex"),
-    refreshToken: crypto.randomBytes(64).toString("hex"),
+    accessToken: randomBytes(64).toString("hex"),
+    refreshToken: randomBytes(64).toString("hex"),
   };
 };
 
@@ -55,7 +54,7 @@ export const loginUserService = async (userData) => {
 
   const { accessToken, refreshToken } = generateTokens();
 
-  const session = await Session.create({
+  await Session.create({
     userId: user._id,
     accessToken,
     refreshToken,
@@ -141,7 +140,6 @@ export const loginOrSignupWithGoogle = async (code) => {
       email: payload.email,
       name: getFullNameFromGoogleTokenPayload(payload),
       password: hashedPassword,
-      role: "parent",
     });
   }
 
@@ -149,7 +147,7 @@ export const loginOrSignupWithGoogle = async (code) => {
 
   const { accessToken, refreshToken } = generateTokens();
 
-  const session = await Session.create({
+  await Session.create({
     userId: user._id,
     accessToken,
     refreshToken,
@@ -182,6 +180,7 @@ export const updateUserService = async (userId, updateData) => {
     });
 
     if (exists) {
+      // eslint-disable-next-line no-console
       console.log("Email already in use:", updates.email);
       throw createHttpError(409, "Email already in use");
     }
@@ -212,7 +211,7 @@ export const updateUserService = async (userId, updateData) => {
 
 export const getUserProfileService = async (userId) => {
   const user = await User.findById(userId).select(
-    "name email photo theme createdAt password",
+    "name email photo theme createdAt",
   );
 
   if (!user) {

@@ -12,7 +12,6 @@ export const getBoardsByUser = async (userId) => {
 export const createBoardService = async (boardData, userId) => {
   const { title, icon, background } = boardData;
 
-  console.log("Creating board with title:", title, "for user:", userId);
   const exists = await Board.findOne({ title, userId });
   if (exists) {
     throw createHttpError(409, "Board with the same title already exists");
@@ -44,7 +43,7 @@ export const editBoardService = async (boardId, boardData, userId) => {
   const board = await Board.findOneAndUpdate(
     { _id: boardId, userId },
     { title, icon, background },
-    { new: true }
+    { new: true },
   );
 
   if (!board) {
